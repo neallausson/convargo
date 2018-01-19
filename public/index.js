@@ -149,7 +149,7 @@ const actors = [{
 // Step 1
 var PriceOfDeliveries=[0,0,0];
 var CommissionOfDeliveries = [[0,0,0],[0,0,0],[0,0,0]];
-//var ActorPrice = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
+var ActorPrice = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
 
 for (var i =0; i<deliveries.length;i++) {
     var infoTruck = infoTruckers(deliveries[i].truckerId);
@@ -168,7 +168,7 @@ for (var i =0; i<deliveries.length;i++) {
     PriceOfDeliveries[i] = deliveries[i].distance*infoTruck[0] + deliveries[i].volume*infoTruck[1];
 
     CommissionOfDeliveries[i][0] = (PriceOfDeliveries[i]*0.3)/2;
-    CommissionOfDeliveries[i][1] = Math.floor(deliveries[i].distance/500);
+    CommissionOfDeliveries[i][1] = Math.floor(deliveries[i].distance/500)+1;
     CommissionOfDeliveries[i][2] = (PriceOfDeliveries[i]*0.3) - CommissionOfDeliveries[i][0] -CommissionOfDeliveries[i][1];
 
     var franchise = 0;
@@ -178,8 +178,11 @@ for (var i =0; i<deliveries.length;i++) {
       PriceOfDeliveries[i] +=  deliveries[i].volume*1;
     }
 
-    //ActorPrice[i][0] = PriceOfDeliveries[i];
-
+    ActorPrice[i][0] = PriceOfDeliveries[i]; //shiper
+    ActorPrice[i][1] = PriceOfDeliveries[i] - PriceOfDeliveries[i]*0.3 - franchise; //trucker
+    ActorPrice[i][2] = CommissionOfDeliveries[i][0]; // insurance
+    ActorPrice[i][3] = CommissionOfDeliveries[i][1]; //treasury
+    ActorPrice[i][4] = CommissionOfDeliveries[i][2] + franchise; //convargo receives
 }
 
 function infoTruckers(searchId)
@@ -191,7 +194,7 @@ function infoTruckers(searchId)
     }
 }
 
-//console.log(ActorPrice);
+console.log(ActorPrice);
 console.log(PriceOfDeliveries);
 console.log(CommissionOfDeliveries)
 console.log(truckers);
