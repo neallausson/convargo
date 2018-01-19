@@ -150,6 +150,18 @@ const actors = [{
 var tab=[0,0,0];
 for (var i =0; i<deliveries.length;i++) {
     var infoTruck = infoTruckers(deliveries[i].truckerId);
+    if(deliveries[i].volume > 25)
+    {
+      infoTruck[1] = infoTruck[1] - infoTruck[1]*0.5;
+    }
+    else if (deliveries[i].volume > 10)
+    {
+        infoTruck[1] = infoTruck[1] - infoTruck[1]*0.3;
+    }
+    else if (deliveries[i].volume > 5)
+    {
+      infoTruck[1] = infoTruck[1] - infoTruck[1]*0.1;
+    }
     tab[i] = deliveries[i].distance*infoTruck[0] + deliveries[i].volume*infoTruck[1];
 }
 
