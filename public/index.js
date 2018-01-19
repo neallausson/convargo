@@ -149,6 +149,7 @@ const actors = [{
 // Step 1
 var PriceOfDeliveries=[0,0,0];
 var CommissionOfDeliveries = [[0,0,0],[0,0,0],[0,0,0]];
+//var ActorPrice = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
 
 for (var i =0; i<deliveries.length;i++) {
     var infoTruck = infoTruckers(deliveries[i].truckerId);
@@ -165,13 +166,19 @@ for (var i =0; i<deliveries.length;i++) {
       infoTruck[1] = infoTruck[1] - infoTruck[1]*0.1;
     }
     PriceOfDeliveries[i] = deliveries[i].distance*infoTruck[0] + deliveries[i].volume*infoTruck[1];
-    if(deliveries[i].options.deductibleReduction)
-    {
-      PriceOfDeliveries[i] +=  deliveries[i].volume*1;
-    }
+
     CommissionOfDeliveries[i][0] = (PriceOfDeliveries[i]*0.3)/2;
     CommissionOfDeliveries[i][1] = Math.floor(deliveries[i].distance/500);
     CommissionOfDeliveries[i][2] = (PriceOfDeliveries[i]*0.3) - CommissionOfDeliveries[i][0] -CommissionOfDeliveries[i][1];
+
+    var franchise = 0;
+    if(deliveries[i].options.deductibleReduction)
+    {
+      franchise = deliveries[i].volume*1;
+      PriceOfDeliveries[i] +=  deliveries[i].volume*1;
+    }
+
+    //ActorPrice[i][0] = PriceOfDeliveries[i];
 
 }
 
@@ -184,7 +191,7 @@ function infoTruckers(searchId)
     }
 }
 
-
+//console.log(ActorPrice);
 console.log(PriceOfDeliveries);
 console.log(CommissionOfDeliveries)
 console.log(truckers);
