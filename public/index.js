@@ -149,6 +149,28 @@ const actors = [{
 // Step 1
 var PriceOfDeliveries=[0,0,0];
 var CommissionOfDeliveries = [[0,0,0],[0,0,0],[0,0,0]];
+const ActorPriceJson =[{
+  'deliveryId': 'bba9500c-fd9e-453f-abf1-4cd8f52af377',
+  'shiper':0,
+  'trucker':0,
+  'treasury':0,
+  'insurance':0,
+  'convargo':0
+},{
+  'deliveryId': '65203b0a-a864-4dea-81e2-e389515752a8',
+  'shiper':0,
+  'trucker':0,
+  'treasury':0,
+  'insurance':0,
+  'convargo':0
+},{
+  'deliveryId': '94dab739-bd93-44c0-9be1-52dd07baa9f6',
+  'shiper':0,
+  'trucker':0,
+  'treasury':0,
+  'insurance':0,
+  'convargo':0
+}];
 var ActorPrice = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
 
 for (var i =0; i<deliveries.length;i++) {
@@ -179,10 +201,15 @@ for (var i =0; i<deliveries.length;i++) {
     }
 
     ActorPrice[i][0] = PriceOfDeliveries[i]; //shiper
+    ActorPriceJson[i].shiper =ActorPrice[i][0];
     ActorPrice[i][1] = PriceOfDeliveries[i] - PriceOfDeliveries[i]*0.3 - franchise; //trucker
+    ActorPriceJson[i].trucker =ActorPrice[i][1];
     ActorPrice[i][2] = CommissionOfDeliveries[i][0]; // insurance
+    ActorPriceJson[i].insurance =ActorPrice[i][2];
     ActorPrice[i][3] = CommissionOfDeliveries[i][1]; //treasury
+    ActorPriceJson[i].treasury =ActorPrice[i][3];
     ActorPrice[i][4] = CommissionOfDeliveries[i][2] + franchise; //convargo receives
+    ActorPriceJson[i].convargo =ActorPrice[i][4];
 }
 
 function infoTruckers(searchId)
@@ -194,6 +221,7 @@ function infoTruckers(searchId)
     }
 }
 
+console.log(ActorPriceJson);
 console.log(ActorPrice);
 console.log(PriceOfDeliveries);
 console.log(CommissionOfDeliveries)
